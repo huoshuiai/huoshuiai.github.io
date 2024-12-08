@@ -1,0 +1,163 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="我与若兰 - 黄若兰纪念网站">
+    <div class="memories-container">
+        <div class="memories-grid">
+            <article class="memory-card">
+                <div class="memory-content">
+                    <h3>标题</h3>
+                    <div class="memory-text">
+                        <p class="placeholder-text">在这里分享您与若兰的回忆...</p>
+                    </div>
+                </div>
+            </article>
+
+            <article class="memory-card">
+                <div class="memory-content">
+                    <h3>标题</h3>
+                    <div class="memory-text">
+                        <p class="placeholder-text">在这里分享您与若兰的回忆...</p>
+                    </div>
+                </div>
+            </article>
+
+            <article class="memory-card">
+                <div class="memory-content">
+                    <h3>标题</h3>
+                    <div class="memory-text">
+                        <p class="placeholder-text">在这里分享您与若兰的回忆...</p>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+</Layout>
+
+<style>
+    .memories-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 6rem 2rem;
+    }
+
+    .memories-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 3rem;
+        align-items: start;
+    }
+
+    .memory-card {
+        background: rgba(255, 255, 255, 0.5);
+        border-radius: 1.5rem;
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        height: 100%;
+        position: relative;
+    }
+
+    .memory-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+    }
+
+    .memory-content {
+        padding: 3rem;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    h3 {
+        font-size: 1.5rem;
+        color: var(--secondary);
+        margin-bottom: 2rem;
+        font-weight: 500;
+        letter-spacing: -0.02em;
+    }
+
+    .memory-text {
+        color: var(--text);
+        line-height: 1.8;
+        font-size: 1.1rem;
+        flex-grow: 1;
+        overflow-y: auto;
+        max-height: 600px;
+        padding-right: 1rem;
+        text-align: justify;
+        text-justify: inter-character;
+        word-break: break-word;
+        hyphens: auto;
+    }
+
+    .memory-text p {
+        margin-bottom: 1.5rem;
+    }
+
+    .memory-text p:last-child {
+        margin-bottom: 0;
+    }
+
+    .memory-text::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .memory-text::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.03);
+        border-radius: 3px;
+    }
+
+    .memory-text::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.1);
+        border-radius: 3px;
+        transition: background 0.3s ease;
+    }
+
+    .memory-text::-webkit-scrollbar-thumb:hover {
+        background: rgba(0, 0, 0, 0.15);
+    }
+
+    .placeholder-text {
+        color: var(--text-light);
+        font-style: italic;
+    }
+
+    @media (min-width: 1200px) {
+        .memories-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    @media (max-width: 1199px) and (min-width: 768px) {
+        .memories-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 767px) {
+        .memories-container {
+            padding: 4rem 1.5rem;
+        }
+
+        .memories-grid {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .memory-content {
+            padding: 2rem;
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .memory-text {
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+    }
+</style>

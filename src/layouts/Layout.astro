@@ -1,0 +1,159 @@
+---
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="黄若兰纪念网站 - 愿若兰的美好，永存于心" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;500;600&display=swap" rel="stylesheet">
+	</head>
+	<body>
+		<nav>
+			<div class="nav-container">
+				<a href="/" class="site-title">黄若兰</a>
+				<div class="nav-links">
+					<a href="/life" class="nav-link">生平</a>
+					<a href="/works" class="nav-link">作品</a>
+					<a href="/memories" class="nav-link">我与若兰</a>
+					<a href="/scholarship" class="nav-link">奖学金</a>
+				</div>
+			</div>
+		</nav>
+		
+		<main>
+			<slot />
+		</main>
+
+		<footer>
+			<div class="footer-content">
+				<p> 2024 黄若兰纪念网站</p>
+			</div>
+		</footer>
+	</body>
+</html>
+
+<style is:global>
+	:root {
+		--primary: #D4B483;
+		--primary-light: #E8D5B7;
+		--secondary: #8B7355;
+		--background: #FAF6F1;
+		--text: #4A4A4A;
+		--text-light: #6E6E6E;
+		--shadow: rgba(139, 115, 85, 0.08);
+	}
+	
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+
+	html {
+		font-family: 'Noto Serif SC', sans-serif;
+		background: var(--background);
+		color: var(--text);
+		scroll-behavior: smooth;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	}
+
+	body {
+		min-height: 100vh;
+		display: flex;
+		flex-direction: column;
+	}
+
+	main {
+		flex: 1;
+		width: 100%;
+	}
+
+	nav {
+		background: rgba(255, 255, 255, 0.8);
+		backdrop-filter: blur(20px);
+		-webkit-backdrop-filter: blur(20px);
+		border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+		position: sticky;
+		top: 0;
+		z-index: 100;
+	}
+
+	.nav-container {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 1rem;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.site-title {
+		color: var(--secondary);
+		text-decoration: none;
+		font-size: 1.25rem;
+		font-weight: 500;
+		letter-spacing: -0.02em;
+	}
+
+	.nav-links {
+		display: flex;
+		gap: 2rem;
+	}
+
+	.nav-link {
+		color: var(--text);
+		text-decoration: none;
+		font-weight: 400;
+		font-size: 0.95rem;
+		opacity: 0.8;
+		transition: opacity 0.2s ease;
+	}
+
+	.nav-link:hover {
+		opacity: 1;
+	}
+
+	footer {
+		background: #FFFFFF;
+		border-top: 1px solid rgba(0, 0, 0, 0.05);
+		padding: 2rem 0;
+		margin-top: 6rem;
+		text-align: center;
+	}
+
+	.footer-content {
+		max-width: 1400px;
+		margin: 0 auto;
+		padding: 0 2rem;
+		color: var(--text-light);
+		font-size: 0.9rem;
+	}
+
+	@media (max-width: 768px) {
+		.nav-links {
+			gap: 1.5rem;
+		}
+
+		.nav-link {
+			font-size: 0.9rem;
+		}
+
+		footer {
+			padding: 1.5rem 0;
+			margin-top: 4rem;
+		}
+	}
+</style>

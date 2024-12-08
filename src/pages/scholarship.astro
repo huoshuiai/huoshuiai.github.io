@@ -1,0 +1,98 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="奖学金 - 黄若兰纪念网站">
+    <div class="scholarship-container">
+        <section class="scholarship-intro">
+            <p>若兰奖学金旨在纪念若兰，激励更多追求智慧、努力上进的年轻人。</p>
+        </section>
+
+        <div class="scholarship-grid">
+            <section class="info-card">
+                <h3>申请条件</h3>
+                <ul>
+                    <li class="placeholder-text">在这里添加申请条件...</li>
+                    <li class="placeholder-text">在这里添加申请条件...</li>
+                    <li class="placeholder-text">在这里添加申请条件...</li>
+                </ul>
+            </section>
+
+            <section class="info-card">
+                <h3>申请流程</h3>
+                <ul>
+                    <li class="placeholder-text">在这里添加申请流程...</li>
+                    <li class="placeholder-text">在这里添加申请流程...</li>
+                    <li class="placeholder-text">在这里添加申请流程...</li>
+                </ul>
+            </section>
+
+            <section class="info-card">
+                <h3>联系方式</h3>
+                <p class="placeholder-text">在这里添加联系方式...</p>
+            </section>
+        </div>
+    </div>
+</Layout>
+
+<style>
+    .scholarship-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 4rem 1rem;
+    }
+
+    .scholarship-intro {
+        max-width: 800px;
+        margin: 0 auto 4rem;
+        text-align: center;
+        font-size: 1.2rem;
+        line-height: 1.8;
+        color: var(--text);
+    }
+
+    .scholarship-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+    }
+
+    .info-card {
+        background: rgba(255, 255, 255, 0.5);
+        padding: 2rem;
+        border-radius: 1rem;
+    }
+
+    h3 {
+        color: var(--secondary);
+        margin-bottom: 1.5rem;
+        font-size: 1.25rem;
+        font-weight: 500;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    li {
+        margin-bottom: 1rem;
+        line-height: 1.6;
+    }
+
+    .placeholder-text {
+        color: var(--text-light);
+        font-style: italic;
+    }
+
+    @media (max-width: 768px) {
+        .scholarship-container {
+            padding: 2rem 1rem;
+        }
+
+        .scholarship-intro {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+    }
+</style>

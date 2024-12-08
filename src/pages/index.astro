@@ -1,0 +1,161 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="黄若兰 - 纪念网站">
+    <div class="container">
+        <section class="hero">
+            <h1>黄若兰</h1>
+            <p class="subtitle">愿若兰的美好，永存于心</p>
+            <div class="hero-image">
+                <div class="image-placeholder">照片待添加</div>
+            </div>
+        </section>
+
+        <section class="intro">
+            <p>
+                黄若兰，一位充满热情的产品经理，以其独特的视角和专业素养，深受朋友们的喜爱。
+                她始终追求产品体验的极致，热爱生活，追求智慧。
+            </p>
+        </section>
+
+        <div class="grid">
+            <section class="card">
+                <h2>生平</h2>
+                <p>从小学到工作，若兰一直保持着对知识的渴望和对生活的热爱。她的生命虽然短暂，却绽放出令人难忘的光彩...</p>
+                <a href="/life" class="link">了解更多</a>
+            </section>
+
+            <section class="card">
+                <h2>作品</h2>
+                <p>作为产品经理，若兰留下了许多优秀的作品。她的产品规划、设计文档和文章，都展现了她对产品的深刻理解...</p>
+                <a href="/works" class="link">查看作品</a>
+            </section>
+
+            <section class="card">
+                <h2>我与若兰</h2>
+                <p>在朋友们的眼中，若兰是一个温暖而富有同理心的人。这里收集了亲朋好友对她的回忆...</p>
+                <a href="/memories" class="link">阅读更多</a>
+            </section>
+
+            <section class="card highlight">
+                <h2>若兰奖学金</h2>
+                <p>为纪念若兰，激励更多善良、努力的年轻人，我们设立了若兰奖学金...</p>
+                <a href="/scholarship" class="link">了解详情</a>
+            </section>
+        </div>
+    </div>
+</Layout>
+
+<style>
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
+    }
+
+    .hero {
+        text-align: center;
+        padding: 4rem 1rem;
+        margin: 2rem auto;
+        background: rgba(212, 180, 131, 0.1);
+        border-radius: 1rem;
+    }
+
+    h1 {
+        font-size: 3rem;
+        color: var(--secondary);
+        margin-bottom: 1rem;
+    }
+
+    .subtitle {
+        font-size: 1.2rem;
+        color: var(--text);
+        margin-bottom: 2rem;
+    }
+
+    .hero-image {
+        margin: 2rem auto;
+        max-width: 600px;
+    }
+
+    .image-placeholder {
+        width: 200px;
+        height: 200px;
+        margin: 0 auto;
+        background: rgba(212, 180, 131, 0.2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-light);
+    }
+
+    .intro {
+        max-width: 800px;
+        margin: 3rem auto;
+        text-align: center;
+        padding: 0 1rem;
+        font-size: 1.1rem;
+        line-height: 1.8;
+        color: var(--text);
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        padding: 2rem 0;
+    }
+
+    .card {
+        background: rgba(212, 180, 131, 0.05);
+        padding: 2rem;
+        border-radius: 1rem;
+        transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+    }
+
+    .highlight {
+        background: rgba(212, 180, 131, 0.1);
+    }
+
+    h2 {
+        color: var(--secondary);
+        margin-bottom: 1rem;
+        font-size: 1.5rem;
+    }
+
+    .card p {
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+    }
+
+    .link {
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s ease;
+    }
+
+    .link:hover {
+        color: var(--secondary);
+    }
+
+    @media (max-width: 768px) {
+        .hero {
+            padding: 3rem 1rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+        }
+
+        .grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>

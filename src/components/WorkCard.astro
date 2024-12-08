@@ -1,0 +1,112 @@
+---
+interface Props {
+    title: string;
+    description: string;
+    date: string;
+    type: string;
+    imageUrl?: string;
+}
+
+const { title, description, date, type, imageUrl } = Astro.props;
+---
+
+<div class="work-card scroll-reveal">
+    {imageUrl && <img src={imageUrl} alt={title} class="work-image" />}
+    <div class="work-content">
+        <span class="work-type">{type}</span>
+        <h3>{title}</h3>
+        <p>{description}</p>
+        <time>{date}</time>
+    </div>
+</div>
+
+<style>
+    .work-card {
+        background: rgba(255, 255, 255, 0.6);
+        border-radius: 1rem;
+        overflow: hidden;
+        box-shadow: 0 4px 20px var(--shadow);
+        transition: var(--transition);
+        position: relative;
+        cursor: pointer;
+    }
+
+    .work-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(45deg, var(--primary-light), transparent);
+        opacity: 0;
+        transition: var(--transition);
+    }
+
+    .work-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 8px 30px var(--shadow);
+    }
+
+    .work-card:hover::before {
+        opacity: 0.1;
+    }
+
+    .work-image {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        transition: var(--transition);
+    }
+
+    .work-card:hover .work-image {
+        transform: scale(1.05);
+    }
+
+    .work-content {
+        padding: 2rem;
+        position: relative;
+        z-index: 1;
+    }
+
+    .work-type {
+        display: inline-block;
+        padding: 0.35rem 1rem;
+        background: var(--primary);
+        color: white;
+        border-radius: 2rem;
+        font-size: 0.85rem;
+        margin-bottom: 1rem;
+        letter-spacing: 0.05em;
+        transition: var(--transition);
+    }
+
+    .work-card:hover .work-type {
+        background: var(--secondary);
+    }
+
+    h3 {
+        color: var(--secondary);
+        margin-bottom: 1rem;
+        font-size: 1.35rem;
+        font-weight: 500;
+        transition: var(--transition);
+    }
+
+    .work-card:hover h3 {
+        color: var(--primary);
+    }
+
+    p {
+        color: var(--text);
+        line-height: 1.7;
+        margin-bottom: 1.5rem;
+        font-size: 0.95rem;
+    }
+
+    time {
+        color: var(--text-light);
+        font-size: 0.85rem;
+        display: block;
+    }
+</style>
