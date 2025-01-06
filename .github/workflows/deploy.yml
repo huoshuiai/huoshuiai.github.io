@@ -1,20 +1,38 @@
 name: Deploy to GitHub Pages
 
 on:
+  # 每次推送到 main 分支时触发部署
   push:
-    branches: [ main ]
-  
-jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+    branches: [master]
+  # 允许手动触发部署
+  workflow_dispatch:
 
-      - name: Install, build, and upload
-        uses: withastro/action@v0
-
+# 允许 job 克隆仓库和创建 GitHub Pages 部署
 permissions:
   contents: read
   pages: write
   id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout your repository using git
+        uses: actions/checkout@v4
+      - name: Install, build, and upload your site output
+        uses: withastro/action@v2
+        # with:
+            # path: . # Astro 项目的根目录位置 (可选)
+            # node-version: 20 # Node 版本,默认是 18 (可选)
+            # package-manager: pnpm@latest # 包管理器 (可选)
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
