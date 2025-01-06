@@ -12,7 +12,7 @@ const { title } = Astro.props;
 		<meta charset="UTF-8" />
 		<meta name="description" content="黄若兰纪念网站 - 愿若兰的美好，永存于心" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<!-- <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> -->
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 		<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,14 +20,24 @@ const { title } = Astro.props;
 		<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;500;600&display=swap" rel="stylesheet">
 	</head>
 	<body>
-		<nav>
+		<nav class="navbar">
 			<div class="nav-container">
-				<a href="/" class="site-title">黄若兰</a>
+				<a href="/" class="nav-logo">黄若兰纪念网站</a>
 				<div class="nav-links">
 					<a href="/life" class="nav-link">生平</a>
-					<a href="/works" class="nav-link">作品</a>
+					
+					<div class="dropdown">
+						<button class="nav-link dropdown-toggle">作品</button>
+						<div class="dropdown-menu">
+							<a href="/works/notes" class="dropdown-item">笔记与作业</a>
+							<a href="/works/reports" class="dropdown-item">报告</a>
+							<a href="/works/articles" class="dropdown-item">文章</a>
+							<a href="/works/designs" class="dropdown-item">设计稿</a>
+						</div>
+					</div>
+
 					<a href="/memories" class="nav-link">我与若兰</a>
-					<a href="/scholarship" class="nav-link">奖学金</a>
+					<a href="/scholarship" class="nav-link">若兰奖学金</a>
 				</div>
 			</div>
 		</nav>
@@ -156,4 +166,134 @@ const { title } = Astro.props;
 			margin-top: 4rem;
 		}
 	}
+
+	.navbar {
+		background: rgba(255, 255, 255, 0.9);
+		backdrop-filter: blur(10px);
+		position: sticky;
+		top: 0;
+		z-index: 100;
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+	}
+
+	.nav-container {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 1rem 2rem;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.nav-logo {
+		color: var(--text-dark);
+		text-decoration: none;
+		font-weight: 500;
+		font-size: 1.1rem;
+	}
+
+	.nav-links {
+		display: flex;
+		gap: 2rem;
+		align-items: center;
+	}
+
+	.nav-link {
+		color: var(--text);
+		text-decoration: none;
+		transition: color 0.3s ease;
+	}
+
+	.nav-link:hover {
+		color: var(--primary);
+	}
+
+	/* 下拉菜单样式 */
+	.dropdown {
+		position: relative;
+	}
+
+	.dropdown-toggle {
+		background: none;
+		border: none;
+		padding: 0;
+		font: inherit;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		gap: 0.3rem;
+	}
+
+	.dropdown-toggle::after {
+		content: '▾';
+		display: inline-block;
+		margin-left: 4px;
+	}
+
+	.dropdown-menu {
+		position: absolute;
+		top: calc(100% + 0.5rem);
+		left: 50%;
+		transform: translateX(-50%);
+		background: white;
+		border-radius: 0.5rem;
+		padding: 0.5rem 0;
+		min-width: 160px;
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+		opacity: 0;
+		visibility: hidden;
+		transition: all 0.3s ease;
+		margin-top: 0.5rem;
+	}
+
+	.dropdown:hover .dropdown-menu {
+		opacity: 1;
+		visibility: visible;
+	}
+
+	.dropdown-item {
+		display: block;
+		padding: 0.5rem 1rem;
+		color: var(--text);
+		text-decoration: none;
+		transition: background-color 0.3s ease;
+		text-align: center;
+	}
+
+	.dropdown-item:hover {
+		background-color: rgba(212, 180, 131, 0.1);
+		color: var(--primary);
+	}
+
+	/* 响应式设计 */
+	@media (max-width: 768px) {
+		.nav-container {
+			padding: 1rem;
+		}
+
+		.nav-links {
+			gap: 1rem;
+		}
+
+		.dropdown-menu {
+			left: 0;
+			transform: none;
+		}
+	}
 </style>
+
+<script>
+	// 为移动端添加点击切换下拉菜单的功能
+	document.addEventListener('DOMContentLoaded', () => {
+		const dropdowns = document.querySelectorAll('.dropdown-toggle');
+		
+		dropdowns.forEach(dropdown => {
+			dropdown.addEventListener('click', (e) => {
+				e.preventDefault();
+				const menu = dropdown.nextElementSibling as HTMLElement;
+				menu.style.visibility = menu.style.visibility === 'visible' ? 'hidden' : 'visible';
+				menu.style.opacity = menu.style.opacity === '1' ? '0' : '1';
+			});
+		});
+	});
+</script>

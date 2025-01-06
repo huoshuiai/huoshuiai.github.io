@@ -1,0 +1,177 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+    const notes = await getCollection('notes');
+    return notes.map(note => ({
+        params: { slug: note.slug },
+        props: { note },
+    }));
+}
+
+const { note } = Astro.props as { note: CollectionEntry<'notes'> };
+const { Content } = await note.render();
+---
+
+<Layout title={`${note.data.title} - 黄若兰纪念网站`}>
+    <div class="note-container">
+        <article class="note-detail">
+            <header class="note-header">
+                <div class="note-meta">
+                    <time class="note-date">{note.data.date}</time>
+                </div>
+                <h1>{note.data.title}</h1>
+            </header>
+            
+            <div class="note-content">
+                <Content />
+            </div>
+        </article>
+    </div>
+</Layout>
+
+<style>
+    .note-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 4rem 2rem;
+    }
+
+    .note-detail {
+        background: rgba(255, 255, 255, 0.8);
+        padding: 3rem;
+        border-radius: 1rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .note-header {
+        margin-bottom: 3rem;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .note-meta {
+        margin-bottom: 1rem;
+    }
+
+    .note-date {
+        color: var(--text-light);
+        font-size: 0.9rem;
+    }
+
+    h1 {
+        font-size: 2rem;
+        color: var(--text);
+        font-weight: 500;
+        margin: 0;
+        line-height: 1.4;
+    }
+
+    .note-content {
+        line-height: 1.8;
+        color: var(--text);
+    }
+
+    .note-content :global(p) {
+        margin: 1.5rem 0;
+    }
+
+    .note-content :global(h2) {
+        font-size: 1.5rem;
+        color: var(--text);
+        margin: 2.5rem 0 1.5rem;
+    }
+
+    .note-content :global(h3) {
+        font-size: 1.25rem;
+        color: var(--text);
+        margin: 2rem 0 1rem;
+    }
+
+    .note-content :global(ul), 
+    .note-content :global(ol) {
+        margin: 1.5rem 0;
+        padding-left: 1.5rem;
+    }
+
+    .note-content :global(li) {
+        margin: 0.5rem 0;
+    }
+
+    .note-content :global(a) {
+        color: var(--primary);
+        text-decoration: none;
+        border-bottom: 1px solid transparent;
+        transition: border-color 0.3s ease;
+    }
+
+    .note-content :global(a:hover) {
+        border-bottom-color: var(--primary);
+    }
+
+    .note-content :global(blockquote) {
+        margin: 2rem 0;
+        padding: 1rem 2rem;
+        border-left: 4px solid var(--primary);
+        background: rgba(0, 0, 0, 0.03);
+        font-style: italic;
+    }
+
+    .note-content :global(code) {
+        background: rgba(0, 0, 0, 0.05);
+        padding: 0.2em 0.4em;
+        border-radius: 3px;
+        font-size: 0.9em;
+    }
+
+    .note-content :global(img) {
+        max-width: 100%;
+        height: auto;
+        border-radius: 0.5rem;
+        margin: 2rem 0;
+        display: block;
+    }
+
+    .note-content :global(figure) {
+        margin: 2rem 0;
+        max-width: 100%;
+    }
+
+    .note-content :global(figure img) {
+        margin: 0;
+    }
+
+    .note-content :global(figcaption) {
+        text-align: center;
+        color: var(--text-light);
+        font-size: 0.9rem;
+        margin-top: 0.5rem;
+    }
+
+    @media (max-width: 768px) {
+        .note-container {
+            padding: 2rem 1rem;
+        }
+
+        .note-detail {
+            padding: 1.5rem;
+        }
+
+        .note-content :global(img) {
+            margin: 1.5rem 0;
+        }
+
+        h1 {
+            font-size: 1.75rem;
+        }
+
+        .note-content :global(h2) {
+            font-size: 1.35rem;
+        }
+
+        .note-content :global(h3) {
+            font-size: 1.2rem;
+        }
+    }
+</style> 

@@ -4,26 +4,24 @@ import Layout from '../layouts/Layout.astro';
 
 <Layout title="生平 - 黄若兰纪念网站">
     <div class="life-container">
-        <div class="timeline">
-            <div class="timeline-item">
-                <div class="timeline-date">2020</div>
-                <div class="timeline-content">
-                    <p class="placeholder-text">在这里添加生平事迹...</p>
-                </div>
+        <article class="memorial">
+            <header class="memorial-header">
+                <h1>黄若兰</h1>
+                <div class="life-years">1990.12.26 － 2024.11.30</div>
+            </header>
+
+            <div class="memorial-content">
+                <p class="intro">黄若兰，湖南人，北京林业大学室内设计专业毕业。毕业后，她毅然选择转行进入互联网行业，历经多次职业转型，从设计师到产品经理，再到分析咨询岗位，最终成为一名优秀的产品分析师。她曾就职于好未来等知名企业，以出色的学习能力和信息分析能力赢得了同事和领导的认可。</p>
+
+                <p>若兰自小聪慧，学习成绩优异，但内心敏感而坚韧。她在成长过程中不断探索自我，追求内心的自由与价值。她热爱钻研，致力于创造有意义且美观的作品，虽未完成她心目中的"大作"，但她的职业生涯充满了突破与成长。</p>
+
+                <p>工作之余，若兰对学习新知识、刷新认知充满热情。她坦率而真诚，敢于面对自己的情绪与不足，并通过不断反思和调整，找到了更适合自己的道路。她的生活经历虽有曲折，但她始终保持着对未来的希望和对自我的追求。</p>
+
+                <p>黄若兰的一生虽短暂，但她用自己的方式活得真实而独立。她的善良、智慧和独特的思考方式将永远留在亲友的记忆中。</p>
+
+                <p class="farewell">愿若兰安息。</p>
             </div>
-            <div class="timeline-item">
-                <div class="timeline-date">2021</div>
-                <div class="timeline-content">
-                    <p class="placeholder-text">在这里添加生平事迹...</p>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-date">2022</div>
-                <div class="timeline-content">
-                    <p class="placeholder-text">在这里添加生平事迹...</p>
-                </div>
-            </div>
-        </div>
+        </article>
     </div>
 </Layout>
 
@@ -31,51 +29,61 @@ import Layout from '../layouts/Layout.astro';
     .life-container {
         max-width: 800px;
         margin: 0 auto;
-        padding: 4rem 1rem;
-    }
-
-    .timeline {
-        position: relative;
-        padding: 2rem 0;
-    }
-
-    .timeline::before {
-        content: '';
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 1px;
-        height: 100%;
-        background: var(--primary-light);
-    }
-
-    .timeline-item {
-        margin: 4rem 0;
-        position: relative;
+        padding: 4rem 2rem;
+        min-height: 100vh;
         display: flex;
-        justify-content: center;
-        align-items: flex-start;
-        gap: 2rem;
+        align-items: center;
     }
 
-    .timeline-date {
-        min-width: 100px;
-        text-align: right;
-        color: var(--secondary);
-        font-weight: 500;
-    }
-
-    .timeline-content {
-        flex: 1;
-        max-width: 400px;
-        background: rgba(255, 255, 255, 0.5);
-        padding: 1.5rem;
+    .memorial {
+        width: 100%;
+        background: rgba(255, 255, 255, 0.8);
+        padding: 3rem;
         border-radius: 1rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
     }
 
-    .placeholder-text {
+    .memorial-header {
+        text-align: center;
+        margin-bottom: 3rem;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .memorial-header h1 {
+        font-size: 2.5rem;
+        margin: 0;
+        font-weight: 500;
+        color: var(--text-dark);
+    }
+
+    .life-years {
+        margin-top: 1rem;
         color: var(--text-light);
+        font-size: 1.1rem;
+    }
+
+    .memorial-content {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .memorial-content p {
+        margin: 1.5rem 0;
+        line-height: 1.8;
+        color: var(--text-dark);
+        text-align: justify;
+    }
+
+    .intro {
+        font-size: 1.1rem;
+    }
+
+    .farewell {
+        text-align: center;
+        margin-top: 3rem;
         font-style: italic;
+        color: var(--text-light);
     }
 
     @media (max-width: 768px) {
@@ -83,18 +91,12 @@ import Layout from '../layouts/Layout.astro';
             padding: 2rem 1rem;
         }
 
-        .timeline::before {
-            left: 2rem;
+        .memorial {
+            padding: 2rem 1.5rem;
         }
 
-        .timeline-item {
-            flex-direction: column;
-            margin-left: 2rem;
-            gap: 0.5rem;
-        }
-
-        .timeline-date {
-            text-align: left;
+        .memorial-header h1 {
+            font-size: 2rem;
         }
     }
 </style>

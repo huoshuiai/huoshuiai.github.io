@@ -8,7 +8,11 @@ import Layout from '../layouts/Layout.astro';
             <h1>黄若兰</h1>
             <p class="subtitle">愿若兰的美好，永存于心</p>
             <div class="hero-image">
-                <div class="image-placeholder">照片待添加</div>
+                <img 
+                    src="/images/ruolan.png" 
+                    alt="黄若兰的照片" 
+                    class="portrait"
+                />
             </div>
         </section>
 
@@ -79,16 +83,14 @@ import Layout from '../layouts/Layout.astro';
         max-width: 600px;
     }
 
-    .image-placeholder {
+    .portrait {
         width: 200px;
         height: 200px;
         margin: 0 auto;
-        background: rgba(212, 180, 131, 0.2);
         border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: var(--text-light);
+        object-fit: cover;
+        display: block;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     }
 
     .intro {

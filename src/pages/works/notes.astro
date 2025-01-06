@@ -1,0 +1,149 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import { generateSummary } from '../../data/notes';
+
+const notes = await getCollection('notes');
+const sortedNotes = notes.sort((a, b) => 
+    new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+---
+
+<Layout title="笔记与作业 - 黄若兰纪念网站">
+    <div class="works-container">
+        <header class="works-header">
+            <h1>笔记与作业</h1>
+            <p class="subtitle">若兰在开智的学习轨迹</p>
+        </header>
+        
+        <div class="notes-content">
+            {sortedNotes.map(note => (
+                <article class="note-card">
+                    <div class="note-meta">
+                        <time class="note-date">{note.data.date}</time>
+                    </div>
+                    <h2 class="note-title">
+                        <a href={`/works/notes/${note.slug}`}>{note.data.title}</a>
+                    </h2>
+                    <p class="note-summary">
+                        {generateSummary(note.body)}
+                    </p>
+                    <a href={`/works/notes/${note.slug}`} class="read-more">
+                        阅读全文
+                        <span class="arrow">→</span>
+                    </a>
+                </article>
+            ))}
+        </div>
+    </div>
+</Layout>
+
+<style>
+    .works-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 4rem 2rem;
+    }
+
+    .works-header {
+        text-align: center;
+        margin-bottom: 4rem;
+    }
+
+    .works-header h1 {
+        font-size: 2.5rem;
+        color: var(--text);
+        margin-bottom: 1rem;
+    }
+
+    .works-header .subtitle {
+        color: var(--text-light);
+        font-size: 1.1rem;
+    }
+
+    .notes-content {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .note-card {
+        background: rgba(255, 255, 255, 0.8);
+        padding: 2rem;
+        border-radius: 1rem;
+        margin-bottom: 2rem;
+        transition: transform 0.3s ease;
+    }
+
+    .note-card:hover {
+        transform: translateY(-2px);
+    }
+
+    .note-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+
+    .note-date {
+        color: var(--text-light);
+        font-size: 0.9rem;
+    }
+
+    .note-title {
+        margin: 0.5rem 0;
+        font-size: 1.5rem;
+    }
+
+    .note-title a {
+        color: var(--text);
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .note-title a:hover {
+        color: var(--primary);
+    }
+
+    .note-summary {
+        color: var(--text-light);
+        line-height: 1.6;
+        margin: 1rem 0;
+    }
+
+    .read-more {
+        display: inline-flex;
+        align-items: center;
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .arrow {
+        margin-left: 0.5rem;
+        transition: transform 0.3s ease;
+    }
+
+    .read-more:hover .arrow {
+        transform: translateX(4px);
+    }
+
+    @media (max-width: 768px) {
+        .works-container {
+            padding: 2rem 1rem;
+        }
+
+        .works-header {
+            margin-bottom: 2rem;
+        }
+
+        .works-header h1 {
+            font-size: 2rem;
+        }
+
+        .note-card {
+            padding: 1.5rem;
+        }
+    }
+</style> 
