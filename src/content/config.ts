@@ -8,6 +8,19 @@ const notesCollection = defineCollection({
     })
 });
 
+const designsCollection = defineCollection({
+    type: 'content',
+    schema: z.object({
+        title: z.string(),
+        date: z.string(),
+        website: z.string(),
+        coverImage: z.string(),
+        tags: z.array(z.string()).optional(),
+        description: z.string(),
+    })
+});
+
 export const collections = {
     notes: notesCollection,
+    designs: designsCollection,
 }; 

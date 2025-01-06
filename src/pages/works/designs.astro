@@ -1,6 +1,11 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import '../../styles/works.css';
+import { getCollection } from 'astro:content';
+
+const designs = await getCollection('designs');
+const sortedDesigns = designs.sort((a, b) => 
+    new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
 ---
 
 <Layout title="设计稿 - 黄若兰纪念网站">
@@ -10,9 +15,176 @@ import '../../styles/works.css';
             <p class="subtitle">若兰的设计作品集</p>
         </header>
         
-        <div class="works-content">
-            <!-- 内容待添加 -->
-            <p class="placeholder-text">内容整理中...</p>
+        <div class="designs-content">
+            {sortedDesigns.map(design => (
+                <article class="design-card">
+                    <div class="design-header">
+                        <div class="logo-and-title">
+                            <div class="design-logo">
+                                <img src={design.data.coverImage} alt={`${design.data.title} logo`} />
+                            </div>
+                            <div class="title-group">
+                                <h2 class="design-title">
+                                    <a href={`/works/designs/${design.slug}`}>{design.data.title}</a>
+                                </h2>
+                                <time class="design-date">{design.data.date}</time>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="design-info">
+                        <p class="design-description">{design.data.description}</p>
+                    </div>
+                    <a href={`/works/designs/${design.slug}`} class="read-more">
+                        查看详情
+                        <span class="arrow">→</span>
+                    </a>
+                </article>
+            ))}
         </div>
     </div>
-</Layout> 
+</Layout>
+
+<style>
+    .works-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 4rem 2rem;
+    }
+
+    .works-header {
+        text-align: center;
+        margin-bottom: 4rem;
+    }
+
+    .works-header h1 {
+        font-size: 2.5rem;
+        color: var(--text);
+        margin-bottom: 1rem;
+    }
+
+    .works-header .subtitle {
+        color: var(--text-light);
+        font-size: 1.1rem;
+    }
+
+    .designs-content {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .design-card {
+        background: rgba(255, 255, 255, 0.8);
+        padding: 2rem;
+        border-radius: 1rem;
+        margin-bottom: 2rem;
+        transition: all 0.3s ease;
+    }
+
+    .design-card:hover {
+        transform: translateY(-2px);
+    }
+
+    .design-header {
+        margin-bottom: 1.5rem;
+    }
+
+    .logo-and-title {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+    }
+
+    .design-logo {
+        width: 64px;
+        height: 64px;
+        border-radius: 16px;
+        overflow: hidden;
+        background: #fff;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .design-logo img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        padding: 12px;
+    }
+
+    .title-group {
+        flex: 1;
+    }
+
+    .design-title {
+        margin: 0 0 0.5rem;
+        font-size: 1.75rem;
+        font-weight: 500;
+    }
+
+    .design-title a {
+        color: var(--text);
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .design-title a:hover {
+        color: var(--primary);
+    }
+
+    .design-date {
+        color: var(--text-light);
+        font-size: 0.9rem;
+    }
+
+    .design-info {
+        margin: 1.5rem 0;
+    }
+
+    .design-description {
+        color: var(--text);
+        font-size: 1.1rem;
+        line-height: 1.6;
+    }
+
+    .read-more {
+        display: inline-flex;
+        align-items: center;
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+    }
+
+    .arrow {
+        margin-left: 0.5rem;
+        transition: transform 0.3s ease;
+    }
+
+    .read-more:hover .arrow {
+        transform: translateX(4px);
+    }
+
+    @media (max-width: 768px) {
+        .design-card {
+            padding: 1.5rem;
+        }
+
+        .logo-and-title {
+            gap: 1rem;
+        }
+
+        .design-logo {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+        }
+
+        .design-title {
+            font-size: 1.5rem;
+        }
+
+        .design-description {
+            font-size: 1rem;
+        }
+    }
+</style> 

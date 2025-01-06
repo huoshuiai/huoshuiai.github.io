@@ -1,7 +1,11 @@
 ---
+
 title: "AI写作001：week3 美感型文本_习作练习"
+
 date: "2023-09-01"
+
 course: "AI写作001"
+
 ---
 
 先交一版，下面的也是GPT写的。我觉得写的好好笑，好想笑不知道为什么。https://42share.com/gpt/8lODHUWzlZ

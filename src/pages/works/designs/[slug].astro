@@ -1,0 +1,193 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+    const designs = await getCollection('designs');
+    return designs.map(design => ({
+        params: { slug: design.slug },
+        props: { design },
+    }));
+}
+
+const { design } = Astro.props as { design: CollectionEntry<'designs'> };
+const { Content } = await design.render();
+---
+
+<Layout title={`${design.data.title} - 黄若兰纪念网站`}>
+    <div class="design-container">
+        <article class="design-detail">
+            <header class="design-header">
+                <div class="design-meta">
+                    <time class="design-date">{design.data.date}</time>
+                </div>
+                <h1>{design.data.title}</h1>
+            </header>
+            
+            <div class="design-content">
+                <Content />
+            </div>
+        </article>
+    </div>
+</Layout>
+
+<style>
+    .design-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 4rem 2rem;
+    }
+
+    .design-detail {
+        background: rgba(255, 255, 255, 0.8);
+        padding: 3rem;
+        border-radius: 1rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .design-header {
+        margin-bottom: 3rem;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .design-meta {
+        margin-bottom: 1rem;
+    }
+
+    .design-date {
+        color: var(--text-light);
+        font-size: 0.9rem;
+    }
+
+    h1 {
+        font-size: 2rem;
+        color: var(--text);
+        font-weight: 500;
+        margin: 0;
+        line-height: 1.4;
+    }
+
+    .design-info {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .design-tags {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+
+    .tag {
+        display: inline-block;
+        padding: 0.2rem 0.6rem;
+        background: var(--primary-light);
+        color: var(--primary);
+        border-radius: 1rem;
+        font-size: 0.8rem;
+    }
+
+    .design-content {
+        line-height: 1.8;
+        color: var(--text);
+    }
+
+    .design-content :global(img) {
+        max-width: 100%;
+        height: auto;
+        border-radius: 1rem;
+        margin: 0;
+        display: block;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        box-shadow: 
+            0 1px 2px rgba(0, 0, 0, 0.05),
+            0 4px 12px rgba(0, 0, 0, 0.08);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .design-content :global(img:hover) {
+        transform: translateY(-2px);
+        box-shadow: 
+            0 2px 4px rgba(0, 0, 0, 0.05),
+            0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .design-content :global(p:has(img)), 
+    .design-content :global(h2:has(img)) {
+        margin: 2rem 0;
+        text-align: center;
+        position: relative;
+    }
+
+    .design-content :global(p:has(img) + p:has(em)) {
+        margin-top: 0.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .design-content :global(p:has(img) + p:has(em) em) {
+        color: var(--text-light);
+        font-size: 0.9rem;
+        font-style: normal;
+    }
+
+    .design-content :global(h2) {
+        font-size: 1.5rem;
+        color: var(--text);
+        margin: 2.5rem 0 1.5rem;
+    }
+
+    .design-content :global(h3) {
+        font-size: 1.25rem;
+        color: var(--text);
+        margin: 2rem 0 1rem;
+    }
+
+    .design-content :global(p:has(img))::after,
+    .design-content :global(h2:has(img))::after {
+        content: attr(data-alt);
+        display: block;
+        text-align: center;
+        color: var(--text);
+        font-size: 1.1rem;
+        margin-top: 1rem;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+    }
+
+    @media (max-width: 768px) {
+        .design-container {
+            padding: 2rem 1rem;
+        }
+
+        .design-detail {
+            padding: 1.5rem;
+        }
+
+        h1 {
+            font-size: 1.75rem;
+        }
+
+        .design-content :global(h2) {
+            font-size: 1.35rem;
+        }
+
+        .design-content :global(h3) {
+            font-size: 1.2rem;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const images = document.querySelectorAll('.design-content img');
+        images.forEach(img => {
+            const parent = img.parentElement;
+            if (parent) {
+                parent.setAttribute('data-alt', img.getAttribute('alt') || '');
+            }
+        });
+    });
+</script> 
