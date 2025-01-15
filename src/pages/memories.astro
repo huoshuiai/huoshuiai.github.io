@@ -1,163 +1,150 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import { generateSummary } from '../data/notes';
+
+const memories = await getCollection('memories');
+const sortedMemories = memories.sort((a, b) => 
+    new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
 ---
 
 <Layout title="我与若兰 - 黄若兰纪念网站">
-    <div class="memories-container">
-        <div class="memories-grid">
-            <article class="memory-card">
-                <div class="memory-content">
-                    <h3>标题</h3>
-                    <div class="memory-text">
-                        <p class="placeholder-text">在这里分享您与若兰的回忆...</p>
+    <div class="works-container">
+        <header class="works-header">
+            <h1>我与若兰</h1>
+            <p class="subtitle">分享您与若兰的珍贵回忆</p>
+        </header>
+        
+        <div class="memories-content">
+            {sortedMemories.map(memory => (
+                <article class="memory-card">
+                    <h2 class="memory-title">
+                        <a href={`/memories/${memory.slug}`}>{memory.data.title}</a>
+                    </h2>
+                    <div class="memory-meta">
+                        <time class="memory-date">{memory.data.date}</time>
+                        <span class="memory-author">作者：{memory.data.author}</span>
                     </div>
-                </div>
-            </article>
-
-            <article class="memory-card">
-                <div class="memory-content">
-                    <h3>标题</h3>
-                    <div class="memory-text">
-                        <p class="placeholder-text">在这里分享您与若兰的回忆...</p>
-                    </div>
-                </div>
-            </article>
-
-            <article class="memory-card">
-                <div class="memory-content">
-                    <h3>标题</h3>
-                    <div class="memory-text">
-                        <p class="placeholder-text">在这里分享您与若兰的回忆...</p>
-                    </div>
-                </div>
-            </article>
+                    <p class="memory-summary">
+                        {generateSummary(memory.body)}
+                    </p>
+                    <a href={`/memories/${memory.slug}`} class="read-more">
+                        阅读全文
+                        <span class="arrow">→</span>
+                    </a>
+                </article>
+            ))}
         </div>
     </div>
 </Layout>
 
 <style>
-    .memories-container {
-        max-width: 1400px;
+    .works-container {
+        max-width: 1200px;
         margin: 0 auto;
-        padding: 6rem 2rem;
+        padding: 4rem 2rem;
     }
 
-    .memories-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-        gap: 3rem;
-        align-items: start;
+    .works-header {
+        text-align: center;
+        margin-bottom: 4rem;
+    }
+
+    .works-header h1 {
+        font-size: 2.5rem;
+        color: var(--text);
+        margin-bottom: 1rem;
+    }
+
+    .works-header .subtitle {
+        color: var(--text-light);
+        font-size: 1.1rem;
+    }
+
+    .memories-content {
+        max-width: 800px;
+        margin: 0 auto;
     }
 
     .memory-card {
-        background: rgba(255, 255, 255, 0.5);
-        border-radius: 1.5rem;
-        overflow: hidden;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        height: 100%;
-        position: relative;
+        background: rgba(255, 255, 255, 0.8);
+        padding: 2rem;
+        border-radius: 1rem;
+        margin-bottom: 2rem;
+        transition: transform 0.3s ease;
     }
 
     .memory-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+        transform: translateY(-2px);
     }
 
-    .memory-content {
-        padding: 3rem;
-        height: 100%;
+    .memory-meta {
         display: flex;
-        flex-direction: column;
+        gap: 1rem;
+        margin: 0.5rem 0 1rem 0;
     }
 
-    h3 {
-        font-size: 1.5rem;
-        color: var(--secondary);
-        margin-bottom: 2rem;
-        font-weight: 500;
-        letter-spacing: -0.02em;
-    }
-
-    .memory-text {
-        color: var(--text);
-        line-height: 1.8;
-        font-size: 1.1rem;
-        flex-grow: 1;
-        overflow-y: auto;
-        max-height: 600px;
-        padding-right: 1rem;
-        text-align: justify;
-        text-justify: inter-character;
-        word-break: break-word;
-        hyphens: auto;
-    }
-
-    .memory-text p {
-        margin-bottom: 1.5rem;
-    }
-
-    .memory-text p:last-child {
-        margin-bottom: 0;
-    }
-
-    .memory-text::-webkit-scrollbar {
-        width: 6px;
-    }
-
-    .memory-text::-webkit-scrollbar-track {
-        background: rgba(0, 0, 0, 0.03);
-        border-radius: 3px;
-    }
-
-    .memory-text::-webkit-scrollbar-thumb {
-        background: rgba(0, 0, 0, 0.1);
-        border-radius: 3px;
-        transition: background 0.3s ease;
-    }
-
-    .memory-text::-webkit-scrollbar-thumb:hover {
-        background: rgba(0, 0, 0, 0.15);
-    }
-
-    .placeholder-text {
+    .memory-date,
+    .memory-author {
         color: var(--text-light);
-        font-style: italic;
+        font-size: 0.9rem;
     }
 
-    @media (min-width: 1200px) {
-        .memories-grid {
-            grid-template-columns: repeat(3, 1fr);
-        }
+    .memory-title {
+        margin: 0;
+        font-size: 1.5rem;
     }
 
-    @media (max-width: 1199px) and (min-width: 768px) {
-        .memories-grid {
-            grid-template-columns: repeat(2, 1fr);
-        }
+    .memory-title a {
+        color: var(--text);
+        text-decoration: none;
+        transition: color 0.3s ease;
     }
 
-    @media (max-width: 767px) {
-        .memories-container {
-            padding: 4rem 1.5rem;
+    .memory-title a:hover {
+        color: var(--primary);
+    }
+
+    .memory-summary {
+        color: var(--text-light);
+        line-height: 1.6;
+        margin: 1rem 0;
+    }
+
+    .read-more {
+        display: inline-flex;
+        align-items: center;
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .arrow {
+        margin-left: 0.5rem;
+        transition: transform 0.3s ease;
+    }
+
+    .read-more:hover .arrow {
+        transform: translateX(4px);
+    }
+
+    @media (max-width: 768px) {
+        .works-container {
+            padding: 2rem 1rem;
         }
 
-        .memories-grid {
-            grid-template-columns: 1fr;
-            gap: 2rem;
+        .works-header {
+            margin-bottom: 2rem;
         }
 
-        .memory-content {
-            padding: 2rem;
+        .works-header h1 {
+            font-size: 2rem;
         }
 
-        h3 {
-            font-size: 1.25rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .memory-text {
-            font-size: 1rem;
-            line-height: 1.7;
+        .memory-card {
+            padding: 1.5rem;
         }
     }
 </style>

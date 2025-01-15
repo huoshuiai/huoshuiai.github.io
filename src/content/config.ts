@@ -20,7 +20,17 @@ const designsCollection = defineCollection({
     })
 });
 
+const memoriesCollection = defineCollection({
+    type: 'content',
+    schema: z.object({
+        title: z.string(),
+        date: z.string(),
+        author: z.string()
+    })
+});
+
 export const collections = {
     notes: notesCollection,
     designs: designsCollection,
+    memories: memoriesCollection,
 }; 
